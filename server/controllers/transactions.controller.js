@@ -1,10 +1,9 @@
+import Transaction from '../models/transactions.model';
+import User from '../models/user.model';
 import asyncHandler from '../utils/asyncHandler';
+import { Router } from 'express';
 
-const express = require('express');
-const router = express.Router();
-const User = require('../models/User');
-const Transaction = require('../models/Transaction');
-const auth = require('../middleware/auth');
+const router = Router();
 
 const transferMoney = asyncHandler(async (req, res) => {
    try {
