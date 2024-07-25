@@ -10,7 +10,7 @@ app.use(cookieParser());
 
 app.use(cors({
    credentials: true,
-   origin: ['http://127.0.0.1:3000'],
+   origin: ['http://127.0.0.1:5173', 'http://localhost:5173'],
    methods: ['GET', 'POST', 'PUT', 'PATCH','DELETE'],
    optionsSuccessStatus: 200,
 }));
@@ -23,7 +23,7 @@ import userRouter from  './routes/user.route.js';
 app.use('/api/v1/user', userRouter);
 
 
-// app.use(errorHandler);
+app.use(errorHandler);
 
 
 export {app}
