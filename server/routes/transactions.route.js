@@ -7,10 +7,10 @@ const router = Router();
 // routes
 
 // Initiate transfer
-router.post('/transfer', authUser, transferMoney);
-router.post('/history', authUser, getTransactionHistory);
-router.post('/add-payables', authUser, addPayables);
-router.post('/add-receivables', authUser, addReceivables);
+router.route('/transfer').post( authUser, transferMoney);
+router.route('/history').get( authUser, getTransactionHistory);
+router.route('/add-payables').post( authUser, addPayables);
+router.route('/add-receivables').post( authUser, addReceivables);
 
 
 export default router;

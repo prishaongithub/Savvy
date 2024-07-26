@@ -17,11 +17,12 @@ app.use(cors({
 
 // Routes
 import userRouter from  './routes/user.route.js';
+import transactionRouter from  './routes/transactions.route.js';
 
 
 // User Route
 app.use('/api/v1/user', userRouter);
-app.use('/api/v1/transactions', userRouter);
+app.use('/api/v1/transactions', transactionRouter);
 
 
 app.use(errorHandler);
