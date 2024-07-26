@@ -6,7 +6,7 @@ const port  = config.port || 3000;
 
 const connectDB = async () => {
    try {
-      const db = await mongoose.connect(`${config.mongodb_uri}\fintechDB`);
+      const db = await mongoose.connect(`${config.mongodb_uri}/savvyDB`);
       console.log("Connected to mongoDB successfully.");
    } catch (error) {
       throw new Error("Error while connecting to mongoDB : ", error);

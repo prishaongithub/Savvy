@@ -14,7 +14,6 @@ const generateTokens = async (id) => {
       {
          _id: user._id,
          email: user.email,
-         username: user.username,
          fullname: user.fullname,
       },
       config.access_token_secret,
@@ -37,16 +36,15 @@ const isPasswordCorrect =  async (password, hashedPassword) => {
 }
 
 const registerUser = asyncHandler(async (req, res)=>{
-   let {email, username, fullname, password} = req.body;
+   let {email, fullname, password} = req.body;
 
    // validate data
-   if(!email || !username || !fullname || !password) {
+   if(!email || !fullname || !password) {
       throw new ApiError(400, "All the data is required");
    }
 
-   const existingUser = await User.find({
-      $or: [{username}, {email}]
-   })
+   const existingUser = await User.find({email});
+   console.log(existingUser)
 
    if(existingUser.length > 0)
       throw new ApiError(400, "User with this email already exists");
@@ -59,7 +57,6 @@ const registerUser = asyncHandler(async (req, res)=>{
 
    const user = await User.create({
       email,
-      username: username.toLowerCase(),
       fullname: fullname.trim(),
       password: await bcrypt.hash(password, 10),
       avatar: avatar?.secure_url || "https://i.ibb.co/r7P3mGQ/fox-6249911.png"
@@ -83,15 +80,13 @@ const registerUser = asyncHandler(async (req, res)=>{
 
 const logInUser = asyncHandler(async (req, res) => {
 
-   const {emailORusername, password} =  req.body;
+   const {email, password} =  req.body;
 
-   if((!emailORusername)  || (!password)) {
+   if((!email)  || (!password)) {
       throw new ApiError(400, 'Please provide required details');
    }
 
-   const user = await User.findOne({
-      $or: [{username: emailORusername}, {email: emailORusername}]
-   });
+   const user = await User.findOne({ email });
 
    if(!user)
       throw new ApiError(404, "User with email or username does not exist");
@@ -164,9 +159,9 @@ const getUserDetails = asyncHandler((req,res)=> {
 
 // Update user details
 const updateUserDetails = asyncHandler( async (req, res) => {
-   const {fullname, username, email} = req.body;
+   const {fullname, email} = req.body;
    
-   if(!fullname && !username && !email)
+   if(!fullname && !email)
       throw new ApiError(400, "Nothing is updated");
 
    const user = await User.findByIdAndUpdate(
@@ -174,7 +169,6 @@ const updateUserDetails = asyncHandler( async (req, res) => {
       {
          $set: {
             fullname,
-            username,
             email
          }
       },
