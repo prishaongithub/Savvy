@@ -11,9 +11,9 @@ const transferMoney = asyncHandler(async (req, res) => {
       const sender = await User.findById(req.user._id);
       const receiver = await User.findOne({ upiId: receiverUpiId });
 
-      if (!receiver) {
-         return res.status(400).json({ msg: 'Receiver not found' });
-      }
+//       if (!receiver) {
+//          return res.status(400).json({ msg: 'Receiver not found' });
+//       }
 
       if (sender.balance < amount) {
          return res.status(400).json({ msg: 'Insufficient balance' });
@@ -34,22 +34,22 @@ const transferMoney = asyncHandler(async (req, res) => {
          throw new ApiError(403, 'Incorrect UPI Pin');
       }
 
-      // In a real scenario, you'd initiate the UPI transaction here
-      // For this example, we'll just update balances directly
+//       // In a real scenario, you'd initiate the UPI transaction here
+//       // For this example, we'll just update balances directly
 
-      sender.balance -= amount;
-      receiver.balance += amount;
+//       sender.balance -= amount;
+//       receiver.balance += amount;
 
-      const transaction = new Transaction({
-         sender: sender._id,
-         receiver: receiver._id,
-         amount,
-         status: 'completed',
-      });
+//       const transaction = new Transaction({
+//          sender: sender._id,
+//          receiver: receiver._id,
+//          amount,
+//          status: 'completed',
+//       });
 
-      await sender.save();
-      await receiver.save();
-      await transaction.save();
+//       await sender.save();
+//       await receiver.save();
+//       await transaction.save();
 
       return res
       .status(402)

@@ -1,0 +1,17 @@
+PORT=7777
+MONGODB_URI=mongodb_uri
+NODE_ENV='development'
+
+# cloudinary config
+CLOUDINARY_CLOUD_NAME=jdu87duih
+CLOUDINARY_API_KEY=784654644548988
+CLOUDINARY_API_SECRET=bhhehieihoeij87837890378
+
+# token details
+ACCESS_TOKEN_SECRET=mySecretAccessToken
+REFRESH_TOKEN_SECRET=mySecretRefreshToken
+ACCESS_TOKEN_EXPIRY='1d'
+REFRESH_TOKEN_EXPIRY='7d'
+
+# Razorpay configs
+
